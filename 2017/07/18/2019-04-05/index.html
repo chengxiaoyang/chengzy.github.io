@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/chengzy.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/chengzy.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/chengzy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/chengzy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/chengzy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/chengzy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/chengzy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ijkplayer 是一款做视频直播的框架, 基于ffmpeg, 支持 Android 和 iOS, 网上也有很多集成说明, 但是个人觉得还是不够详细, 在这里详细的讲一下在 iOS 中如何集成ijkplayer, 即便以前从没有接触过, 按着下面做也可以集成成功!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ijkplayer">
+<meta property="og:url" content="https://chengxiaoyang.github.io/2017/07/18/2019-04-05/index.html">
+<meta property="og:site_name" content="程子阳的Blog">
+<meta property="og:description" content="ijkplayer 是一款做视频直播的框架, 基于ffmpeg, 支持 Android 和 iOS, 网上也有很多集成说明, 但是个人觉得还是不够详细, 在这里详细的讲一下在 iOS 中如何集成ijkplayer, 即便以前从没有接触过, 按着下面做也可以集成成功!">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-728d89123de76da7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/219/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-c3b8f8bcae855612.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/430/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-96d2217e323aab4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/619/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-20b7360630592cb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/466/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-d8e86e2be4ed3960.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/772/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-43c88a0111f408ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/433/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-607cc84c212faf90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-a37b61a3714319b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/695/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-bbc0adc479cebb69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/566/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-daa4498f7e0746d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/887/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-344cda905745ff39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/565/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-3dc9e54521817ae5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/617/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-ec00ef4cb15c66d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/667/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-d025e12bf804ee05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/625/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-8d228ab56eb77f43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/622/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-391a45a214aae76a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/393/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1803339-70734d8c3d25ae23.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480/format/webp">
+<meta property="og:updated_time" content="2019-04-05T07:13:40.066Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ijkplayer">
+<meta name="twitter:description" content="ijkplayer 是一款做视频直播的框架, 基于ffmpeg, 支持 Android 和 iOS, 网上也有很多集成说明, 但是个人觉得还是不够详细, 在这里详细的讲一下在 iOS 中如何集成ijkplayer, 即便以前从没有接触过, 按着下面做也可以集成成功!">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1803339-728d89123de76da7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/219/format/webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/chengzy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chengxiaoyang.github.io/2017/07/18/2019-04-05/">
+
+
+
+
+
+  <title>ijkplayer | 程子阳的Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/chengzy.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程子阳的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/chengzy.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/chengzy.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chengxiaoyang.github.io/chengzy.github.io/2017/07/18/2019-04-05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="程子阳">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/chengzy.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程子阳的Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ijkplayer</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T15:23:03+08:00">
+                2017-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ijkplayer 是一款做视频直播的框架, 基于ffmpeg, 支持 Android 和 iOS, 网上也有很多集成说明, 但是个人觉得还是不够详细, 在这里详细的讲一下在 iOS 中如何集成ijkplayer, 即便以前从没有接触过, 按着下面做也可以集成成功!<a id="more"></a></p>
+<h5 id="一-下载ijkplayer"><a href="#一-下载ijkplayer" class="headerlink" title="一. 下载ijkplayer"></a>一. 下载ijkplayer</h5><p><code>ijkplayer</code>下载地址:<a href="https://link.jianshu.com?t=https://github.com/Bilibili/ijkplayer" target="_blank" rel="noopener">https://github.com/Bilibili/ijkplayer</a><br>下载完成后解压, 解压后文件夹内部目录如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-728d89123de76da7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/219/format/webp" alt="image"></p>
+<h5 id="二-编译-ijkplayer"><a href="#二-编译-ijkplayer" class="headerlink" title="二. 编译 ijkplayer"></a>二. 编译 ijkplayer</h5><p>说是编译 ijkplayer, 其实是编译 ffmpeg, 在这里我们已经下载好了<code>ijkplayer</code>, 所以 github 上<code>README.md</code>中的<code>Build iOS</code>那一步中有一些步骤是不需要的.<br>下面开始一步一步编译:<br>1.打开终端, cd 到<code>jkplayer-master</code>文件夹中, 也就是下载完解压后的文件夹, 如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-c3b8f8bcae855612.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/430/format/webp" alt="image"></p>
+<p>2.执行命令行<code>./init-ios.sh</code>, 这一步是去下载 ffmpeg 的, 时间会久一点, 耐心等一下.如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-96d2217e323aab4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/619/format/webp" alt="image"></p>
+<p>3.在第2步中下载完成后, 执行<code>cd ios</code>, 也就是进入到 ios目录中, 如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-20b7360630592cb4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/466/format/webp" alt="image"></p>
+<p>4.进入 ios 文件夹后, 在终端依次执行<code>./compile-ffmpeg.sh clean</code>和<code>./compile-ffmpeg.sh all</code>命令, 编译 ffmpeg, 也就是<code>README.md</code>中这两步, 如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-d8e86e2be4ed3960.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/772/format/webp" alt="image"></p>
+<p><em>编译时间较久, 耐心等待一下.</em></p>
+<h6 id="三-打包IJKMediaFramework-framework框架"><a href="#三-打包IJKMediaFramework-framework框架" class="headerlink" title="三. 打包IJKMediaFramework.framework框架"></a>三. 打包<code>IJKMediaFramework.framework</code>框架</h6><p>集成 ijkplayer 有两种方法:<br>一种方法是按照<code>IJKMediaDemo</code>工程中那样, 直接导入工程<code>IJKMediaPlayer.xcodeproj</code>, 在这里不做介绍, 如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-43c88a0111f408ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/433/format/webp" alt="image"></p>
+<p>第二种集成方法是把 ijkplayer 打包成<code>framework</code>导入工程中使用. 下面开始介绍如何打包<code>IJKMediaFramework.framework</code>, 按下面步骤开始一步一步做:</p>
+<ol>
+<li>首先打开工程<code>IJKMediaPlayer.xcodeproj</code>, 位置如下图:</li>
+</ol>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-607cc84c212faf90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720/format/webp" alt="image"></p>
+<p>打开后是这样的, 如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-a37b61a3714319b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/695/format/webp" alt="image"></p>
+<p>2.工程打开后设置工程的 scheme, 具体步骤如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-bbc0adc479cebb69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/566/format/webp" alt="image"></p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-daa4498f7e0746d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/887/format/webp" alt="image"></p>
+<p>3.设置好 scheme 后, 分别选择真机和模拟器进行编译, 编译完成后, 进入 Finder, 如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-344cda905745ff39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/565/format/webp" alt="image"></p>
+<p>进入 Finder 后, 可以看到有真机和模拟器两个版本的编译结果, 如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-3dc9e54521817ae5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/617/format/webp" alt="image"></p>
+<p>下面开始合并真机和模拟器版本的 framework, 注意不要合并错了, 合并的是这个文件, 如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-ec00ef4cb15c66d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/667/format/webp" alt="image"></p>
+<p>打开终端, 进行合并, 命令行具体格式为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -create &quot;真机版本路径&quot; &quot;模拟器版本路径&quot; -output &quot;合并后的文件路径&quot;</span><br></pre></td></tr></table></figure>
+<p>合并后如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-d025e12bf804ee05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/625/format/webp" alt="image"></p>
+<p>下面很重要, 需要用合并后的<code>IJKMediaFramework</code>把原来的<code>IJKMediaFramework</code>替换掉, 如下图, 希望你能看懂:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-8d228ab56eb77f43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/622/format/webp" alt="image"></p>
+<p>上图中的1、2两步完成后, 绿色框住的那个<code>IJKMediaFramework.framework</code>文件就是我们需要的框架了, 可以复制出来, 稍后我们需要导入工程使用.</p>
+<h5 id="四-iOS工程中集成ijkplayer"><a href="#四-iOS工程中集成ijkplayer" class="headerlink" title="四. iOS工程中集成ijkplayer"></a>四. iOS工程中集成ijkplayer</h5><p>新建工程, 导入合并后的<code>IJKMediaFramework.framework</code>以及相关依赖框架以及相关依赖框架,如下图:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-391a45a214aae76a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/393/format/webp" alt="image"></p>
+<p>导入框架后, 在<code>ViewController.m</code>进行测试, 首先导入<code>IJKMediaFramework.h</code>头文件, 编译看有没有错, 如果没有错说明集成成功.<br>接着开始在<code>ViewController.m</code>文件中使用<code>IJKMediaFramework</code>框架进行测试使用, 写一个简单的直播视频进行测试, 在这里看一下运行后的结果, 后面会放上 Demo 供下载.</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1803339-70734d8c3d25ae23.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480/format/webp" alt="image"></p>
+<p>至此, ijkplayer 集成完毕!</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/chengzy.github.io/2017/04/05/czy/" rel="next" title="快速开发完整的iOS直播">
+                <i class="fa fa-chevron-left"></i> 快速开发完整的iOS直播
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/chengzy.github.io/2018/02/05/浅谈内存管理/" rel="prev" title="浅谈内存管理">
+                浅谈内存管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">程子阳</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/chengzy.github.io/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一-下载ijkplayer"><span class="nav-number">1.</span> <span class="nav-text">一. 下载ijkplayer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二-编译-ijkplayer"><span class="nav-number">2.</span> <span class="nav-text">二. 编译 ijkplayer</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#三-打包IJKMediaFramework-framework框架"><span class="nav-number">2.1.</span> <span class="nav-text">三. 打包IJKMediaFramework.framework框架</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四-iOS工程中集成ijkplayer"><span class="nav-number">3.</span> <span class="nav-text">四. iOS工程中集成ijkplayer</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">程子阳</span>
+
+  
+</div>
+
+
+  <div class="powered-by">有 程子阳提供支持 </div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">谢谢您的浏览 &mdash; </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/chengzy.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chengzy.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chengzy.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chengzy.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chengzy.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chengzy.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/chengzy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/chengzy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/chengzy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/chengzy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/chengzy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/chengzy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/chengzy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
